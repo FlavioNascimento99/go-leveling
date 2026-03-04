@@ -15,17 +15,23 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"os"
-	"sort"
-	"strconv"
+	"bufio"			// Scanner de I/O
+	"fmt"			// Fomatação e saída de dados (CLI), Print(e variáveis amplamente utilizados)
+	"os"			// Interações para com Sistema Operacional
+	"sort" 			// Ordenação de listas (literalmente utilizado de maneira exclusiva pela função de ordenação)
+	"strconv"		// 
 	"strings"
 )
 
 func main() {
+
+	/*
+		Criação de lista de tipagem inteira.
+
+		Declaração e criação de instância (.NewScanner) de variável (tipo Scanner) a ser utilizado como ponteiro dentro das demais funções.
+	*/
 	numeros := []int{}
-	scanner := bufio.NewScanner(os.Stdin)
+	scanner := bufio.NewScanner(os.Stdin) // (os.Std) define a entrada default do OS como parâmetro da função.
 
 	for {
 		exibirMenu()
@@ -63,6 +69,11 @@ func main() {
 	}
 }
 
+
+/*
+	Função para renderização em terminal de menu de interação.
+	sem input, ideia resume-se à construção
+*/ 
 func exibirMenu() {
 	fmt.Println("=== Menu ===")
 	fmt.Println("1) Adicionar número")
@@ -77,17 +88,26 @@ func exibirMenu() {
 	fmt.Println("0) Sair")
 }
 
+
+/*
+	Função de adição de número dentro da listagem de valores.
+	@param: lista de inteiros
+*/
 func adicionarNumero(numeros []int, scanner *bufio.Scanner) []int {
 	fmt.Print("Digite um número inteiro: ")
 	scanner.Scan()
+
+	
 	texto := strings.TrimSpace(scanner.Text())
 
+	// Tratamento de excessão: 
 	numero, err := strconv.Atoi(texto)
 	if err != nil {
 		fmt.Println("Valor inválido")
 		return numeros
 	}
 
+	// Tratamento de excessão: 
 	if numero < 0 {
 		fmt.Println("Não é permitido adicionar números negativos")
 		return numeros
