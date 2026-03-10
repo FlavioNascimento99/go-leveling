@@ -118,6 +118,9 @@ func adicionarNumero(numeros []int, scanner *bufio.Scanner) []int {
 	return numeros
 }
 
+/*
+	Impressão de listagem de números cadastrados
+*/
 func listarNumeros(numeros []int) {
 	if len(numeros) == 0 {
 		fmt.Println("Lista vazia")
@@ -130,6 +133,10 @@ func listarNumeros(numeros []int) {
 	}
 }
 
+
+/*
+	Remover número a partir da posição do mesmo na lista.
+*/
 func removerPorIndice(numeros []int, scanner *bufio.Scanner) []int {
 	if len(numeros) == 0 {
 		fmt.Println("Lista vazia")
@@ -152,6 +159,10 @@ func removerPorIndice(numeros []int, scanner *bufio.Scanner) []int {
 	return numeros
 }
 
+
+/*
+	Impressão (valor mais alto e baixo) e média.
+*/
 func calcularEstatisticas(numeros []int) {
 	if len(numeros) == 0 {
 		fmt.Println("Lista vazia")
@@ -164,6 +175,10 @@ func calcularEstatisticas(numeros []int) {
 	fmt.Printf("Média: %.2f\n", media)
 }
 
+
+/*
+
+*/
 func estatisticas(numeros []int) (int, int, float64) {
 	minimo := numeros[0]
 	maximo := numeros[0]
@@ -183,6 +198,12 @@ func estatisticas(numeros []int) (int, int, float64) {
 	return minimo, maximo, media
 }
 
+
+/*
+	Divisão de valores utilizando Atoi, para conversão de ASCII para Inteiro
+	TrimSpace vai remover espaços em branco enquanto que Scanner.Text espera 
+	uma entrada do usuário.
+*/
 func divisaoSegura(scanner *bufio.Scanner) {
 	fmt.Print("Digite o dividendo: ")
 	scanner.Scan()
@@ -209,6 +230,11 @@ func divisaoSegura(scanner *bufio.Scanner) {
 	fmt.Printf("Resultado: %d\n", resultado)
 }
 
+
+/*
+	Função de divisão feita à mão, impede passagem de valor de divisor como
+	0, afinal divisor não pode ser 0.
+*/
 func dividir(dividendo, divisor int) (int, error) {
 	if divisor == 0 {
 		return 0, fmt.Errorf("divisor não pode ser zero")
@@ -216,6 +242,15 @@ func dividir(dividendo, divisor int) (int, error) {
 	return dividendo / divisor, nil
 }
 
+
+/*
+	Ordenação de Lista de números cadastrados, selecionável se 
+	será crescente ou decrescente, utilizando uma cópia da lista 
+	original.
+
+	Para construir uma cópia em ordem crescente, utilizamos sort.Ints()
+	Para construir uma cópia em ordem DEcrescente, utilizamos 
+*/
 func ordenarLista(numeros []int, scanner *bufio.Scanner) {
 	if len(numeros) == 0 {
 		fmt.Println("Lista vazia")
@@ -234,18 +269,32 @@ func ordenarLista(numeros []int, scanner *bufio.Scanner) {
 	if escolha == "1" {
 		sort.Ints(copia)
 	} else if escolha == "2" {
+		/*
+			IntSlice, vai internamente verificar tamanho da lista, checar valores e ordenar 
+			de acordo com a chamada que faz parte, nesse caso o Reverse.
+		*/
 		sort.Sort(sort.Reverse(sort.IntSlice(copia)))
 	} else {
 		fmt.Println("Opção inválida")
 		return
 	}
 
+	/*
+		Impressão da ordenação
+		Sairá basicamente (valor_indice, valor_numero)
+	*/
 	fmt.Println("Números ordenados:")
-	for _, num := range copia {
-		fmt.Println(num)
+	for valor_indice, valor_numero := range copia {
+		fmt.Println(valor_numero)
 	}
 }
 
+
+/*
+	Recorte de valores numéricos adicionados à lista que podem ser 
+	pares.
+	Basicamente, valores em que, em caso de divisão por 2, não possui sobra.
+*/
 func exibirPares(numeros []int) {
 	pares := []int{}
 	for _, num := range numeros {
@@ -265,6 +314,15 @@ func exibirPares(numeros []int) {
 	}
 }
 
+
+/*
+	Salvam os dados dentro de um arquivo de texto, em caso em que a lista
+	1. Nomeamos o arquivo
+	2. Em caso de erro, retorna print informativo
+	3. Caso de sucesso, a impressão de valores (Indice, Valor) e arquivo 
+	salvo
+	Encerra função.
+*/
 func exportarParaArquivo(numeros []int, scanner *bufio.Scanner) {
 	fmt.Print("Digite o nome do arquivo: ")
 	scanner.Scan()
